@@ -1,5 +1,5 @@
 """
-插入排序
+选择排序
 """
 from copy import deepcopy
 from random import randint
