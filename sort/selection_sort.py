@@ -2,10 +2,11 @@
 选择排序
 """
 from copy import deepcopy
-from random import randint
+
+from sort import SortCheckAble
 
 
-class Solution:
+class Solution(SortCheckAble):
 
     @staticmethod
     def sort(data: list) -> list:
@@ -22,15 +23,6 @@ class Solution:
                 data[i], data[mindex] = data[mindex], data[i]
 
         return data
-
-    @staticmethod
-    def comparator(data: list) -> list:
-        data.sort()
-        return data
-
-    @staticmethod
-    def get_random_list(maxsize, maxvalue):
-        return [randint(0, maxvalue) for _ in range(maxsize)]
 
 
 if __name__ == "__main__":
