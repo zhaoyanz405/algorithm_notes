@@ -10,4 +10,4 @@ class SortCheckAble:
 
     @staticmethod
     def get_random_list(maxsize, maxvalue):
-        return [randint(0, maxvalue) for _ in range(maxsize)]
+        return [randint(0, maxvalue) for _ in range(randint(0, maxsize))]
