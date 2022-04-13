@@ -33,15 +33,15 @@ def find_middle(head):
     :param head:
     :return:
     """
+    if head is None:
+        return
+
     fast = head
     slow = head
 
-    while fast and fast.next:
-        fast = fast.next.next
-        if fast is None:
-            break
-
+    while fast.next and fast.next.next:
         slow = slow.next
+        fast = fast.next.next
 
     return slow
 

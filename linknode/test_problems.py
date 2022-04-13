@@ -1,7 +1,7 @@
 import pytest
 
 from linknode.node import create_linknode
-from linknode.problems import get_public_seqs, is_palindrome
+from linknode.problems import get_public_seqs, is_palindrome, find_middle
 
 
 @pytest.mark.parametrize(
@@ -14,6 +14,7 @@ from linknode.problems import get_public_seqs, is_palindrome
 def test_get_public_seqs(head1, head2, expected):
     assert get_public_seqs(head1, head2) == expected
 
+
 @pytest.mark.parametrize(
     'head,exp', [
         (create_linknode([]), False),
@@ -24,3 +25,14 @@ def test_get_public_seqs(head1, head2, expected):
 )
 def test_is_palindrome(head, exp):
     assert is_palindrome(head) == exp
+
+
+@pytest.mark.parametrize(
+    'head,exp', [
+        (create_linknode([1]), 1),
+        (create_linknode([1, 2]), 1),
+        (create_linknode([1, 2, 3]), 2),
+    ]
+)
+def test_find_middle(head, exp):
+    assert find_middle(head).value == exp
