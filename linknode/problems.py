@@ -1,6 +1,5 @@
-import pytest
-
 from linknode.node import create_linknode
+from linknode.reverse import reverse_v2
 
 
 def get_public_seqs(head1, head2):
@@ -28,12 +27,52 @@ def get_public_seqs(head1, head2):
     return public_parts
 
 
-@pytest.mark.parametrize(
-    'head1,head2,expected', [
-        (create_linknode([1, 2, 3, 4, 5]), create_linknode([1, 3, 4, 6]), [1, 3, 4]),
-        (None, create_linknode([1, 3, 4, 6]), []),
-        (create_linknode([1, 2, 3, ]), create_linknode([4, 6]), []),
-    ]
-)
-def test_get_public_seqs(head1, head2, expected):
-    assert get_public_seqs(head1, head2) == expected
+def find_middle(head):
+    """
+    通过快慢指针找到链表的中点
+    :param head:
+    :return:
+    """
+    fast = head
+    slow = head
+
+    while fast and fast.next:
+        fast = fast.next.next
+        if fast is None:
+            break
+
+        slow = slow.next
+
+    return slow
+
+
+def is_palindrome(head):
+    if head is None:
+        return False
+
+    lp = head
+    middle = find_middle(head)
+    rev_head = reverse_v2(middle)
+    lp.print()
+    rev_head.print()
+
+    rp = rev_head
+    res = True
+    while lp and rp:
+        if lp.value != rp.value:
+            res = False
+            break
+
+        lp = lp.next
+        rp = rp.next
+
+    # recovery head
+    old_head = reverse_v2(rev_head)
+    middle.next = old_head.next
+
+    return res
+
+
+if __name__ == '__main__':
+    head = create_linknode([1, 2, 3, 2, 1])
+    assert is_palindrome(head)
