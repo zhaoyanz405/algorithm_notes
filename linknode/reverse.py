@@ -21,8 +21,7 @@ def reverse_v1(node: LinkNode):
         value = stack.pop()
         node = LinkNode(value)
         if head is None:
-            head = node
-            cur = head
+            cur = head = node
         else:
             cur.next = node
             cur = cur.next
