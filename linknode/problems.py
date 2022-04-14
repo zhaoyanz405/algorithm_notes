@@ -1,4 +1,4 @@
-from linknode.node import create_linknode
+from linknode.node import LinkNode
 from linknode.reverse import reverse_v2
 
 
@@ -73,6 +73,45 @@ def is_palindrome(head):
     return res
 
 
+def find_loop(head):
+    """
+    找到给定链表的入环节点
+
+    解法1：使用列表记录沿途节点，每到新节点都检查节点是否已经存在，存在即为入环节点。
+    解法2：快慢指针, 快指针一次走两步，慢指针一次走一步，当快慢指针相遇时，将快指针移到起点，然后快指针一次走一步，慢指针一次走一步，相遇点即为入环节点
+    :param head:
+    :return:
+    """
+    if head is None or head.next is None or head.next.next is None:
+        return
+
+    slow = head.next
+    fast = head.next.next
+
+    while slow != fast:
+        if fast.next.next is None or slow.next is None:
+            return None
+
+        fast = fast.next.next
+        slow = slow.next
+
+    fast = head
+    while slow != fast:
+        fast = fast.next
+        slow = slow.next
+
+    return fast
+
+
 if __name__ == '__main__':
-    head = create_linknode([1, 2, 3, 2, 1])
-    assert is_palindrome(head)
+    n1 = LinkNode(1)
+    n2 = LinkNode(2)
+    n1.next = n2
+
+    n3 = LinkNode(3)
+    n2.next = n3
+
+    n4 = LinkNode(4)
+    n3.next = n4
+    n4.next = n3
+    print(find_loop(n1))
